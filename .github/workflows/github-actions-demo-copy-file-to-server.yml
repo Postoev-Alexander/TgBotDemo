@@ -23,6 +23,6 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           port: 22
-          password: ${{ secrets.SERVER_PASSWORD }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "./README01"
           target: "~/.deploy/${{ github.event.repository.name }}/"
