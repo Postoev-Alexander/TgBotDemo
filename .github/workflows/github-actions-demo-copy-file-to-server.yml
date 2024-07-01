@@ -49,7 +49,4 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           envs: APPTOKEN,USERNAME
-          script: |
-            echo $APPTOKEN | docker login ghcr.io -u $USERNAME --password-stdin
-            cd ~/.deploy/${{ github.event.repository.name }}
-            mkdir tgbot00001
+          script: mkdir tgbot00001
