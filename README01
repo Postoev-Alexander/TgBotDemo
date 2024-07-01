@@ -1,4 +1,4 @@
-Test connect 3
+Test connect 4
 Через секреты работает
 
           privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
