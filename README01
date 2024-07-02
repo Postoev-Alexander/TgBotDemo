@@ -1,9 +1,9 @@
 Test connect 7
 Через секреты работает
 
-          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+
+		  Key: ${{ secrets.SSH_PRIVATE_KEY }}
           password: ${{ secrets.SERVER_PASSWORD }}
-		  
 		  
 		  echo $YOUR_GITHUB_PAT | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
 		  echo $YOUR_GITHUB_PAT | docker login ghcr.io -u johndoe --password-stdin
