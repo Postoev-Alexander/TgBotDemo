@@ -67,5 +67,5 @@ jobs:
             echo $APPTOKEN | docker login ghcr.io -u $USERNAME --password-stdin
             cd ~/.deploy/${{ github.event.repository.name }}
             docker compose -f ./docker-compose-testing.yml pull
-            docker service rm tgbotdemo                                                           
+            docker service rm tgbotdemo_tgbotdemo                                                           
             docker stack deploy --compose-file ./docker-compose-testing.yml tgbotdemo                                                
