@@ -22,7 +22,7 @@ namespace TgBotDemo
     {
         private static TelegramBotClient botClient;
         private static string userChatId = "1842171326"; // Замените на ваш chat_id пользователя
-
+        private static ManualResetEvent resetEvent = new ManualResetEvent(false);
         static void Main(string[] args)
         {
             Console.WriteLine("Bot starting");
@@ -32,8 +32,9 @@ namespace TgBotDemo
 
             // Запуск веб-сервера
             Task.Run(() => StartWebServer());
-
-            Console.ReadLine();
+            Console.WriteLine("WebServer started");
+            resetEvent.WaitOne();
+            //Console.ReadLine();
         }
 
         private static async Task HandleUpdateBot(ITelegramBotClient botClient, Update update, CancellationToken token)
@@ -170,7 +171,7 @@ namespace TgBotDemo
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:5000", "http://localhost:5001") // Замените на нужный вам порт
+                .UseUrls("http://*:5000", "http://*:5001") // Замените на нужный вам порт
                 .ConfigureServices(services => services.AddSingleton(botClient))
                 .Configure(app => app.Run(async context =>
                 {

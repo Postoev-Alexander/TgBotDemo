@@ -34,8 +34,7 @@
               "RelativeToolTip": "docker-compose-testing.yml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2024-08-07T08:20:11.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-07T08:20:11.708Z"
             },
             {
               "$type": "Document",
@@ -47,8 +46,7 @@
               "RelativeToolTip": "Dockerfile",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-28T14:18:08.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-28T14:18:08.433Z"
             },
             {
               "$type": "Document",
@@ -58,7 +56,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAKQAAAAAAAAAAAAswK4AAAA6AAAA",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAABgAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-27T12:38:13.185Z",
               "EditorCaption": ""
