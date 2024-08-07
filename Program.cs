@@ -170,7 +170,7 @@ namespace TgBotDemo
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://localhost:5000") // Замените на нужный вам порт
+                .UseUrls("http://localhost:5000", "http://localhost:5001") // Замените на нужный вам порт
                 .ConfigureServices(services => services.AddSingleton(botClient))
                 .Configure(app => app.Run(async context =>
                 {
