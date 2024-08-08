@@ -16,8 +16,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     networks:
-      - tgbotdemo_net
+      - nginx_bot_net
 
 networks:
-  tgbotdemo_net:
+  nginx_bot_net:
     driver: overlay
