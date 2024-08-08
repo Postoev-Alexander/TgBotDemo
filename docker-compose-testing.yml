@@ -20,4 +20,5 @@ services:
 
 networks:
   nginx_bot_net:
+    external: true
     driver: overlay
