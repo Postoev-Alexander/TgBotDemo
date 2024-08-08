@@ -2,7 +2,8 @@ version: '3.9'
 
 services:
   tgbotdemo:
-    image: ghcr.io/postoev-alexander/tgbotdemo:main  
+    image: ghcr.io/postoev-alexander/tgbotdemo:main
+    container_name: tgbotdemo
     ports:
       - "5000:5000"
       - "5001:5001"
@@ -14,3 +15,9 @@ services:
       replicas: 1
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - tgbotdemo_net
+
+networks:
+  tgbotdemo_net:
+    driver: overlay
