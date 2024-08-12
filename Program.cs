@@ -171,7 +171,7 @@ namespace TgBotDemo
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls("http://*:5000", "http://*:5001") // Замените на нужный вам порт
+                .UseUrls("http://*:5000", "http://*:5001")
                 .ConfigureServices(services => services.AddSingleton(botClient))
                 .Configure(app => app.Run(async context =>
                 {
@@ -181,9 +181,23 @@ namespace TgBotDemo
                         {
                             var requestBody = await reader.ReadToEndAsync();
                             Console.WriteLine($"Получено сообщение: {requestBody}");
-                            
+
+                            // Парсинг JSON
+                            var payload = JsonConvert.DeserializeObject<dynamic>(requestBody);
+
+                            // Извлечение данных
+                            var buildNumber = (string)payload.BUILD_NUMBER;
+                            var buildDate = (string)payload.BUILD_DATE;
+                            var branchName = (string)payload.BRANCH_NAME;
+                            var googleBuildsDir = (string)payload.GOOGLE_BUILDS_DIR;
+
+                            // Формирование сообщения
+                            var message = $"Build №{buildNumber} {buildDate} {branchName}.\n" +
+                                          $"Другие сборки можно скачать c Google диска ({googleBuildsDir})";
+
                             // Отправка сообщения пользователю в Telegram
-                            await botClient.SendTextMessageAsync(userChatId, $"Новое сообщение:\n{requestBody}");
+                            await botClient.SendTextMessageAsync(userChatId, message);
+
                             context.Response.StatusCode = (int)HttpStatusCode.OK;
                             await context.Response.WriteAsync("Message received and sent to Telegram.");
                         }
