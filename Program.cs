@@ -94,9 +94,13 @@ namespace TgBotDemo
                         await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы отписаны от уведомлений TeamCity за 398$ в месяц");
                         subscriptionManager.RemoveSubscription(msg.Chat.Id, null);
                         return;
-                    case "/t1":
-                        await botClient.SendTextMessageAsync(msg.Chat.Id, "Тест1");
-                        Console.WriteLine("Тест1");
+                    case "/ls":
+                        var subscribedChats = subscriptionManager.GetSubscribedChats();
+                        foreach (var subscribedChat in subscribedChats)
+                        {
+                            await botClient.SendTextMessageAsync(msg.Chat.Id, $"Чат: {subscribedChat.ChatId} тема: {subscribedChat.ThreadId} ");
+                        }
+                        Console.WriteLine("Отправил список подписок");
                         return;
                     case "/t2":
                         await botClient.SendTextMessageAsync(msg.Chat.Id, "Тест2");
