@@ -88,10 +88,10 @@ namespace TgBotDemo
                 {
                     case "/start_notify_teamcity":
                         subscriptionManager.AddSubscription(msg.Chat.Id, null);
-                        await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы подписаны на уведомления TeamCity за 199$ в месяц");
+                        await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы подписаны на уведомления TeamCity за 198$ в месяц");
                         return;
                     case "/end_notify_teamcity":
-                        await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы отписаны от уведомлений TeamCity за 399$ в месяц");
+                        await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы отписаны от уведомлений TeamCity за 398$ в месяц");
                         subscriptionManager.RemoveSubscription(msg.Chat.Id, null);
                         return;
                     case "/t1":
