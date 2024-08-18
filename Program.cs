@@ -75,9 +75,6 @@ namespace TgBotDemo
                         replyToMessageId: msg.MessageId);
                     return;
                 }
-
-                // Возврат из метода, если сообщение не относится к командам
-
                 return;
             }
 
