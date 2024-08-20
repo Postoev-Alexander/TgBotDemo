@@ -38,6 +38,7 @@ namespace TgBotDemo
             resetEvent.WaitOne();
             //Console.ReadLine();
         }
+        //kjhsakjd
 
         private static async Task HandleUpdateBot(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
