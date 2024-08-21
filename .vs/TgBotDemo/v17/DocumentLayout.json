@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\LabGit\\TgBotDemo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\subscriptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:subscriptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\webserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:webserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\groupchatcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:groupchatcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\subscriptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:subscriptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\docker-compose-testing.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -26,24 +34,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GroupChatCommandHandler.cs",
+              "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\GroupChatCommandHandler.cs",
+              "RelativeDocumentMoniker": "GroupChatCommandHandler.cs",
+              "ToolTip": "C:\\LabGit\\TgBotDemo\\GroupChatCommandHandler.cs",
+              "RelativeToolTip": "GroupChatCommandHandler.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T12:48:43.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "WebServer.cs",
+              "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\WebServer.cs",
+              "RelativeDocumentMoniker": "WebServer.cs",
+              "ToolTip": "C:\\LabGit\\TgBotDemo\\WebServer.cs",
+              "RelativeToolTip": "WebServer.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAA7wDgAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-20T11:53:37.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "SubscriptionManager.cs",
               "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\SubscriptionManager.cs",
               "RelativeDocumentMoniker": "SubscriptionManager.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\SubscriptionManager.cs",
               "RelativeToolTip": "SubscriptionManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-13T12:46:34.169Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "docker-compose-testing.yml",
               "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\docker-compose-testing.yml",
               "RelativeDocumentMoniker": "docker-compose-testing.yml",
@@ -51,12 +85,11 @@
               "RelativeToolTip": "docker-compose-testing.yml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
-              "WhenOpened": "2024-08-07T08:20:11.708Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-07T08:20:11.708Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Dockerfile",
               "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\Dockerfile",
               "RelativeDocumentMoniker": "Dockerfile",
@@ -64,8 +97,7 @@
               "RelativeToolTip": "Dockerfile",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-06-28T14:18:08.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-28T14:18:08.433Z"
             },
             {
               "$type": "Document",
@@ -75,7 +107,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAL0AAAAAAAAAAAAowL0AAAA5AAAA",
+              "ViewState": "AQIAAG4AAAAAAAAAAAAtwDgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-27T12:38:13.185Z",
               "EditorCaption": ""
