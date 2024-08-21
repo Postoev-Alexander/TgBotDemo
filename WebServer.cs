@@ -10,12 +10,18 @@ using System;
 
 namespace TgBotDemo
 {
+    public struct TeamCityBuildInfo
+    {
+        public string BuildNumber { get; set; }
+        public string BuildDate { get; set; }
+        public string BranchName { get; set; }
+        public string GoogleBuildsDir { get; set; }
+    }
     public class WebServer
     {
         private readonly TelegramBotClient _botClient;
         private readonly SubscriberList _subscriber;
-        private const string _portListeningA = "http://*:5000";
-        private const string _portListeningB = "http://*:5001";
+        private const string _portListening = "http://*:5000";
 
         public WebServer(TelegramBotClient botClient, SubscriberList subscriber)
         {
@@ -31,7 +37,7 @@ namespace TgBotDemo
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls(_portListeningA, _portListeningB)
+                .UseUrls(_portListening)
                 .ConfigureServices(services => services.AddSingleton(_botClient))
                 .Configure(app => app.Run(async context =>
                 {
@@ -45,7 +51,6 @@ namespace TgBotDemo
                     }
                 }))
                 .Build();
-
             host.Run();
         }
 
@@ -55,32 +60,32 @@ namespace TgBotDemo
             {
                 var requestBody = await reader.ReadToEndAsync();
                 Console.WriteLine($"Received a message from TeamCity: {requestBody}");
-                var payload = JsonConvert.DeserializeObject<dynamic>(requestBody);
-                // Извлечение данных
-                var buildNumber = (string)payload.build_number;
-                var buildDate = (string)payload.build_date;
-                var branchName = (string)payload.branch_name;
-                var googleBuildsDir = (string)payload.google_builds_dir;
-                // Формирование сообщения
-                var message = $"Build №{buildNumber} {buildDate} {branchName}.\n" +
-                              $"Другие сборки можно скачать c Google диска ({googleBuildsDir})";
-                // Отправка сообщения от TeamCity всем подписанным пользователям и группам
-                var subscribedChats = _subscriber.GetSubscribedChats();
-                foreach (var (chatId, threadId) in subscribedChats)
-                {
-                    Console.WriteLine($"Send message to ChatID {chatId} and topic {threadId}");
-                    if (threadId.HasValue)
-                    {
-                        await _botClient.SendTextMessageAsync(chatId, message, messageThreadId: threadId.Value);
-                    }
-                    else
-                    {
-                        await _botClient.SendTextMessageAsync(chatId, message);
-                    }
-                }
+                var payload = JsonConvert.DeserializeObject<TeamCityBuildInfo>(requestBody);   
+
+                var message = $"Build №{payload.BuildNumber} {payload.BuildDate} {payload.BranchName}.\n" +
+                              $"Другие сборки можно скачать c Google диска ({payload.GoogleBuildsDir})";
+                await SendMessageToSubscribers(message);
+
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
                 await context.Response.WriteAsync("Message received from TeamCity and sent to Telegram.");
             }
         }
+
+        private async Task SendMessageToSubscribers(string message) 
+        {
+            var subscribedChats = _subscriber.GetSubscribedChats();
+            foreach (var (chatId, threadId) in subscribedChats)
+            {
+                Console.WriteLine($"Send message to ChatID {chatId} and topic {threadId}");
+                if (threadId.HasValue)
+                {
+                    await _botClient.SendTextMessageAsync(chatId, message, messageThreadId: threadId.Value);
+                }
+                else
+                {
+                    await _botClient.SendTextMessageAsync(chatId, message);
+                }
+            }
+        } 
     }
 }

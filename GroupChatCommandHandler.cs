@@ -19,7 +19,7 @@ namespace TgBotDemo
         {
             if (GroupChatCommandHandler.IsGroupChat(msg))
             {
-                Console.WriteLine($"Сообщение из группового чата. Chat.Id = {msg.Chat.Id}");
+                Console.WriteLine($"Сообщение из группового чата. Chat.Id = {msg.Chat.Title}");
 
                 if (await TryAddSubscriptionAsync(msg))
                     return true;
@@ -30,7 +30,7 @@ namespace TgBotDemo
             return false;
         }
 
-        public static bool IsGroupChat(Message msg) // вынести в отдельный класс например bothelper
+        public static bool IsGroupChat(Message msg)
         {
             return msg?.Chat.Type == ChatType.Group || msg?.Chat.Type == ChatType.Supergroup || msg?.Chat.Type == ChatType.Channel;
         }
@@ -41,7 +41,7 @@ namespace TgBotDemo
             if (msg.Text.Contains("/start_notify_teamcity", StringComparison.OrdinalIgnoreCase))
             {
                 _subscriber.AddSubscription(msg.Chat.Id, msg.MessageThreadId);
-                Console.WriteLine($"Групповой чат {msg.Chat.Id} подписан на уведомления TeamCity с топиком {msg.MessageThreadId}.");
+                Console.WriteLine($"Групповой чат: {msg.Chat.Title} подписан на уведомления TeamCity с топиком {msg.MessageThreadId}.");
                 await _botClient.SendTextMessageAsync(msg.Chat.Id, "Групповой чат подписан на уведомления TeamCity.",
                     replyToMessageId: msg.MessageId);
                 return true;
@@ -54,7 +54,7 @@ namespace TgBotDemo
             if (msg.Text.Contains("/end_notify_teamcity", StringComparison.OrdinalIgnoreCase))
             {
                 _subscriber.RemoveSubscription(msg.Chat.Id, msg.MessageThreadId);
-                Console.WriteLine($"Групповой чат {msg.Chat.Id} отписан от уведомлений TeamCity с топиком {msg.MessageThreadId}.");
+                Console.WriteLine($"Групповой чат: {msg.Chat.Title} отписан от уведомлений TeamCity с топиком {msg.MessageThreadId}.");
                 await _botClient.SendTextMessageAsync(msg.Chat.Id, "Групповой чат отписан от уведомлений TeamCity.",
                     replyToMessageId: msg.MessageId);
                 return true;
