@@ -26,6 +26,7 @@ namespace TgBotDemo
         private static ManualResetEvent resetEvent = new ManualResetEvent(false);
         private static readonly SubscriberList subscriberList = new SubscriberList();
         private static  GroupChatCommandHandler groupChatCommandHandler = null!;
+ 
         static void Main(string[] args)
         {
             Console.WriteLine("Bot starting");
