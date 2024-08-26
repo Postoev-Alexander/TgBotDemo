@@ -1,11 +1,9 @@
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
-<<<<<<< HEAD
+
 /[Ll]ibrary/
-=======
-/Library/
->>>>>>> main
+
 /[Tt]emp/
 
 # Visual Studio 2015 cache/options directory
