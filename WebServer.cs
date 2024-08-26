@@ -15,6 +15,7 @@ namespace TgBotDemo
         public string BuildNumber { get; set; }
         public string BuildDate { get; set; }
         public string BranchName { get; set; }
+        public string BuildDescription { get; set; }
         public string GoogleBuildsDir { get; set; }
     }
     public class WebServer
@@ -62,8 +63,8 @@ namespace TgBotDemo
                 Console.WriteLine($"Received a message from TeamCity: {requestBody}");
                 var payload = JsonConvert.DeserializeObject<TeamCityBuildInfo>(requestBody);   
 
-                var message = $"Build №{payload.BuildNumber} {payload.BuildDate} {payload.BranchName}.\n" +
-                              $"Другие сборки можно скачать c Google диска ({payload.GoogleBuildsDir})";
+                var message = $"Собран Build №{payload.BuildNumber} {payload.BuildDate} {payload.BranchName} {payload.BuildDescription}.\n" +
+                              $"Сборки можно скачать c Google диска ({payload.GoogleBuildsDir})";
                 await SendMessageToSubscribers(message);
 
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
