@@ -1,6 +1,6 @@
 ﻿using Telegram.Bot.Types;
 
-public class SubscriptionManager
+public class SubscriberList
 {
     private readonly HashSet<(ChatId ChatId, int? ThreadId)> _subscriptions = new();
     public void AddSubscription(ChatId chatId, int? threadId)

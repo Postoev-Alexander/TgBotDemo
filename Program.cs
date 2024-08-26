@@ -24,59 +24,37 @@ namespace TgBotDemo
         private static TelegramBotClient botClient;
         private static string userChatId = "1842171326"; // Замените на ваш chat_id пользователя
         private static ManualResetEvent resetEvent = new ManualResetEvent(false);
-        private static readonly SubscriptionManager subscriptionManager = new SubscriptionManager();
+        private static readonly SubscriberList subscriberList = new SubscriberList();
+        private static  GroupChatCommandHandler groupChatCommandHandler = null!;
+ 
         static void Main(string[] args)
         {
             Console.WriteLine("Bot starting");
             botClient = new TelegramBotClient("6408930022:AAFPLT5Onn9IXfTZONpu3G8ktldCovduapo");
+            groupChatCommandHandler = new GroupChatCommandHandler(botClient, subscriberList);
             botClient.StartReceiving(HandleUpdateBot, HandleErrorBot);
             Console.WriteLine("Bot started");
 
             // Запуск веб-сервера
-            Task.Run(() => StartWebServer());
+            var webServer = new WebServer(botClient, subscriberList);
+            webServer.Start();
+
+            // Task.Run(() => StartWebServer());
             Console.WriteLine("WebServer started");
             resetEvent.WaitOne();
             //Console.ReadLine();
         }
+        //kjhsakjd
 
         private static async Task HandleUpdateBot(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
             var msg = update.Message;
-
-            if (msg?.Chat.Type == ChatType.Group || msg?.Chat.Type == ChatType.Supergroup || msg?.Chat.Type == ChatType.Channel)
-            {
-                Console.WriteLine($"Сообщение из группового чата. Chat.Id = {msg.Chat.Id}");
-                // Обработка команды /start_notify_teamcity
-                if (msg.Text.Contains("/start_notify_teamcity", StringComparison.OrdinalIgnoreCase)) 
-                {
-                    // Получение идентификатора чата и номера топика (если есть)
-                    var chatId = msg.Chat.Id;
-                    var threadId = msg.MessageThreadId;
-
-                    // Подписка чата на уведомления TeamCity
-                    subscriptionManager.AddSubscription(chatId, threadId);
-                    Console.WriteLine($"Групповой чат {chatId} подписан на уведомления TeamCity с топиком {threadId}.");
-                    await botClient.SendTextMessageAsync(chatId, "Групповой чат подписан на уведомления TeamCity.",
-                        replyToMessageId: msg.MessageId);
-                    return;
-                }
-
-                // Обработка команды /end_notify_teamcity
-                if (msg.Text.Contains("/end_notify_teamcity", StringComparison.OrdinalIgnoreCase))
-                    {
-                    // Получение идентификатора чата и номера топика (если есть)
-                    var chatId = msg.Chat.Id;
-                    var threadId = msg.MessageThreadId;
-
-                    // Отписка чата от уведомлений TeamCity
-                    subscriptionManager.RemoveSubscription(chatId, threadId);
-                    Console.WriteLine($"Групповой чат {chatId} отписан от уведомлений TeamCity с топиком {threadId}.");
-                    await botClient.SendTextMessageAsync(chatId, "Групповой чат отписан от уведомлений TeamCity.",
-                        replyToMessageId: msg.MessageId);
-                    return;
-                }
+            if (msg?.Text is not { } messageText || msg.From == null)
                 return;
-            }
+
+            if (await groupChatCommandHandler.HandleAsync(msg)) return;
+
+
 
             if (msg?.Text != null)
             {
@@ -84,15 +62,15 @@ namespace TgBotDemo
                 switch (msg.Text)
                 {
                     case "/start_notify_teamcity":
-                        subscriptionManager.AddSubscription(msg.Chat.Id, null);
+                        subscriberList.AddSubscription(msg.Chat.Id, null);
                         await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы подписаны на уведомления TeamCity за 198$ в месяц");
                         return;
                     case "/end_notify_teamcity":
                         await botClient.SendTextMessageAsync(msg.Chat.Id, "Вы отписаны от уведомлений TeamCity за 398$ в месяц");
-                        subscriptionManager.RemoveSubscription(msg.Chat.Id, null);
+                        subscriberList.RemoveSubscription(msg.Chat.Id, null);
                         return;
                     case "/ls":
-                        var subscribedChats = subscriptionManager.GetSubscribedChats();
+                        var subscribedChats = subscriberList.GetSubscribedChats();
                         foreach (var subscribedChat in subscribedChats)
                         {
                             await botClient.SendTextMessageAsync(msg.Chat.Id, $"Чат: {subscribedChat.ChatId} тема: {subscribedChat.ThreadId} ");
@@ -232,7 +210,7 @@ namespace TgBotDemo
                                           $"Другие сборки можно скачать c Google диска ({googleBuildsDir})";
 
                             // Отправка сообщения от TeamCity всем подписанным пользователям и группам
-                            var subscribedChats = subscriptionManager.GetSubscribedChats();
+                            var subscribedChats = subscriberList.GetSubscribedChats();
                             foreach (var (chatId, threadId) in subscribedChats)
                             {
                                 Console.WriteLine($"Send message to chat {chatId} and tipic {threadId}");
