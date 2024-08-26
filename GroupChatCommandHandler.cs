@@ -48,6 +48,7 @@ namespace TgBotDemo
             }
             return false;
         }
+
         public async Task<bool> TryRemoveSubscriptionAsync(Message msg)
         {
             if (msg.Text == null) return false;
@@ -60,7 +61,6 @@ namespace TgBotDemo
                 return true;
             }
             return false;
-
         }
     }
 }

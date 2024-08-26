@@ -21,7 +21,7 @@ namespace TgBotDemo
     {
         private readonly TelegramBotClient _botClient;
         private readonly SubscriberList _subscriber;
-        private const string _portListening = "http://*:5000";
+        private const string _defaultPortListening = "http://*:5000";
 
         public WebServer(TelegramBotClient botClient, SubscriberList subscriber)
         {
@@ -37,7 +37,7 @@ namespace TgBotDemo
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls(_portListening)
+                .UseUrls(GetPortListening())
                 .ConfigureServices(services => services.AddSingleton(_botClient))
                 .Configure(app => app.Run(async context =>
                 {
@@ -71,6 +71,14 @@ namespace TgBotDemo
             }
         }
 
+        private static string GetPortListening()
+        {
+         //   string? environmentPort = "PORT_LISTENING".ReadEnvironmentNullable();
+           // if (var env_var != null)
+             //   return env_var;
+
+            return _defaultPortListening;
+        }
         private async Task SendMessageToSubscribers(string message) 
         {
             var subscribedChats = _subscriber.GetSubscribedChats();

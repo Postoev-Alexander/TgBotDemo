@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\LabGit\\TgBotDemo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\LabGit\\TgBotDemo\\WebServer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebServer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\LabGit\\TgBotDemo\\GroupChatCommandHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:GroupChatCommandHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\webserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:webserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\groupchatcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|solutionrelative:groupchatcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5296B37-3668-4E9C-B3D4-8B564F2C8DDA}|TgBotDemo.csproj|c:\\labgit\\tgbotdemo\\subscriptionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,13 +38,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GroupChatCommandHandler.cs",
               "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\GroupChatCommandHandler.cs",
               "RelativeDocumentMoniker": "GroupChatCommandHandler.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\GroupChatCommandHandler.cs",
               "RelativeToolTip": "GroupChatCommandHandler.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADsAAAAcAAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAAASwBEAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-20T12:48:43.084Z",
               "EditorCaption": ""
@@ -57,7 +57,7 @@
               "RelativeDocumentMoniker": "WebServer.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\WebServer.cs",
               "RelativeToolTip": "WebServer.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAIwCMAAAAiAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAgwDUAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-20T11:53:37.386Z",
               "EditorCaption": ""
@@ -70,9 +70,10 @@
               "RelativeDocumentMoniker": "SubscriptionManager.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\SubscriptionManager.cs",
               "RelativeToolTip": "SubscriptionManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAFAAAA",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAEwBEAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-13T12:46:34.169Z"
+              "WhenOpened": "2024-08-13T12:46:34.169Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -100,15 +101,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\LabGit\\TgBotDemo\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\LabGit\\TgBotDemo\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAG4AAAAAAAAAAAAtwDgAAAAAAAAA",
+              "ViewState": "AQIAAHgAAAAAAAAAAAAYwE8AAAA8AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T12:38:13.185Z"
+              "WhenOpened": "2024-06-27T12:38:13.185Z",
+              "EditorCaption": ""
             }
           ]
         }
