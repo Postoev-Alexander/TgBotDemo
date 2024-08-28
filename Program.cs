@@ -1,42 +1,29 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using Telegram.Bot;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using System.Collections.Generic;
 
 namespace TgBotDemo
 {
-    internal class Program
+	internal class Program
     {
         private static TelegramBotClient botClient;
         private static string userChatId = "1842171326"; // Замените на ваш chat_id пользователя
         private static ManualResetEvent resetEvent = new ManualResetEvent(false);
-        private static readonly SubscriberList subscriberList = new SubscriberList();
-        private static  GroupChatCommandHandler groupChatCommandHandler = null!;
+        public static readonly SubscriberList subscriberList = new SubscriberList();
+        private static  NotificationHandler groupChatCommandHandler = null!;
  
         static void Main(string[] args)
         {
             Console.WriteLine("Bot starting");
             botClient = new TelegramBotClient("6408930022:AAFPLT5Onn9IXfTZONpu3G8ktldCovduapo");
-            groupChatCommandHandler = new GroupChatCommandHandler(botClient, subscriberList);
+            groupChatCommandHandler = new NotificationHandler(botClient, subscriberList);
             botClient.StartReceiving(HandleUpdateBot, HandleErrorBot);
             Console.WriteLine("Bot started");
 
             // Запуск веб-сервера
-            var webServer = new WebServer(botClient, subscriberList);
+            var webServer = new WebListener(botClient, subscriberList);
             webServer.Start();
 
             // Task.Run(() => StartWebServer());
@@ -44,7 +31,6 @@ namespace TgBotDemo
             resetEvent.WaitOne();
             //Console.ReadLine();
         }
-        //kjhsakjd
 
         private static async Task HandleUpdateBot(ITelegramBotClient botClient, Update update, CancellationToken token)
         {
@@ -179,63 +165,6 @@ namespace TgBotDemo
         {
             Console.WriteLine($"Bot error \n {exception}");
             return Task.CompletedTask;
-        }
-
-        private static void StartWebServer()
-        {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseUrls("http://*:5000", "http://*:5001")
-                .ConfigureServices(services => services.AddSingleton(botClient))
-                .Configure(app => app.Run(async context =>
-                {
-                    if (context.Request.Method == "POST")
-                    {
-                        using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
-                        {
-                            var requestBody = await reader.ReadToEndAsync();
-                            Console.WriteLine($"Получено сообщение от TeamCity: {requestBody}");
-
-                            // Парсинг JSON
-                            var payload = JsonConvert.DeserializeObject<dynamic>(requestBody);
-
-                            // Извлечение данных
-                            var buildNumber = (string)payload.BUILD_NUMBER;
-                            var buildDate = (string)payload.BUILD_DATE;
-                            var branchName = (string)payload.BRANCH_NAME;
-                            var googleBuildsDir = (string)payload.GOOGLE_BUILDS_DIR;
-
-                            // Формирование сообщения
-                            var message = $"Build №{buildNumber} {buildDate} {branchName}.\n" +
-                                          $"Другие сборки можно скачать c Google диска ({googleBuildsDir})";
-
-                            // Отправка сообщения от TeamCity всем подписанным пользователям и группам
-                            var subscribedChats = subscriberList.GetSubscribedChats();
-                            foreach (var (chatId, threadId) in subscribedChats)
-                            {
-                                Console.WriteLine($"Send message to chat {chatId} and tipic {threadId}");
-                                if (threadId.HasValue)
-                                {
-                                    await botClient.SendTextMessageAsync(chatId, message, messageThreadId: threadId.Value);
-                                }
-                                else
-                                {
-                                    await botClient.SendTextMessageAsync(chatId, message);
-                                }
-                            }
-
-                            context.Response.StatusCode = (int)HttpStatusCode.OK;
-                            await context.Response.WriteAsync("Message received and sent to Telegram.");
-                        }
-                    }
-                    else
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
-                    }
-                }))
-                .Build();
-
-            host.Run();
         }
     }
 }

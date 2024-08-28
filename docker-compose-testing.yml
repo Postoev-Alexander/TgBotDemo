@@ -10,7 +10,7 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
+        delay: 500s
       mode: replicated
       replicas: 1
     environment:

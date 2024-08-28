@@ -1,7 +1,10 @@
 {
   "profiles": {
     "TgBotDemo": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "environmentVariables": {
+        "TEAMCITY_PORT_LISTENING_ENVIRONMENT": "5000"
+      }
     },
     "WSL": {
       "commandName": "WSL2",
