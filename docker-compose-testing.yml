@@ -20,6 +20,5 @@ services:
 networks:
   nginx_net:
     name: nginx_net
-    external: true
     driver: overlay
     attachable: true
