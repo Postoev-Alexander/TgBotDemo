@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 
 services:
   tgbotdemo:
@@ -6,20 +6,20 @@ services:
     container_name: tgbotdemo
     ports:
       - "5000:5000"
-      - "5001:5001"
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 500s
+        delay: 5s
       mode: replicated
       replicas: 1
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     networks:
-      - nginx_bot_net
+      - nginx_net
 
 networks:
-  nginx_bot_net:
+  nginx_net:
+    name: nginx_net
     external: true
     driver: overlay
     attachable: true
