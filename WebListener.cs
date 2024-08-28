@@ -66,7 +66,7 @@ namespace TgBotDemo
 				await SendMessageToSubscribers(message);
 
 				context.Response.StatusCode = (int)HttpStatusCode.OK;
-				await context.Response.WriteAsync("Message received from TeamCity and sent to Telegram.");
+				await context.Response.WriteAsync("Message received from TeamCity and sent to Telegram..");
 			}
 		}
 
