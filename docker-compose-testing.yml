@@ -3,7 +3,7 @@ version: '3.8'
 services:
   tgbotdemo:
     image: ghcr.io/postoev-alexander/tgbotdemo:main
-    container_name: tgbotdemo
+    container_name: tg.bot.demo
     ports:
       - "5000:5000"
     deploy:
