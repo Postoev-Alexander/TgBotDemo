@@ -1,0 +1,93 @@
+version: '3.9'
+services:
+
+  postgres:
+    image: postgres:16.4
+
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: passbolt
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD_FILE: /run/secrets/passbolt_postgres_password
+    secrets:
+      - passbolt_postgres_password
+    volumes:
+      - passbolt_db:/var/lib/postgresql/data
+    networks:
+      - passbolt_net
+
+  passbolt:
+    image: passbolt/passbolt:4.9.1-1-ce
+    environment:
+      # APP_FULL_BASE_URL need to set the server IP and the server port (If not standart) where stack will be hosted
+      APP_FULL_BASE_URL: https://passbolt.local
+      # Don't set DATASOURCES environments otherwise you won't be able to configure the service
+    depends_on:
+      - postgres
+    # ports:
+    #  - 80:80
+    #  - 443:443
+    volumes:
+      - passbolt_gpg:/var/www/passbolt/config/gpg
+      - passbolt_jwt:/etc/passbolt/jwt
+    networks:
+      - passbolt_net
+      
+  nginx-certbot:
+    # https://github.com/JonasAlfredsson/docker-nginx-certbot?tab=readme-ov-file
+    # Images: https://hub.docker.com/r/jonasal/nginx-certbot/tags
+    image: jonasal/nginx-certbot:5.0.1-nginx1.25.4
+    restart: unless-stopped
+    # Manual/Force Renewal certificate: https://github.com/JonasAlfredsson/docker-nginx-certbot/blob/master/docs/advanced_usage.md#manualforce-renewal
+    environment:
+      # Required: https://github.com/JonasAlfredsson/docker-nginx-certbot?tab=readme-ov-file#required
+      CERTBOT_EMAIL: devops.team@winzardy.com
+
+      # Optional: https://github.com/JonasAlfredsson/docker-nginx-certbot?tab=readme-ov-file#optional
+      # DHPARAM_SIZE: 2024
+      # ELLIPTIC_CURVE: secp256r1
+      # RENEWAL_INTERVAL: 8d
+      # RSA_KEY_SIZE: 2048
+      # STAGING: 0
+      # USE_ECDSA: 1
+
+      # Advanced: https://github.com/JonasAlfredsson/docker-nginx-certbot?tab=readme-ov-file#advanced
+      # CERTBOT_AUTHENTICATOR: webroot
+      # CERTBOT_DNS_PROPAGATION_SECONDS: ""
+      # DEBUG: 0
+      # USE_LOCAL_CA: 0
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # https://github.com/JonasAlfredsson/docker-nginx-certbot?tab=readme-ov-file#volumes
+      - nginx_secrets:/etc/letsencrypt
+    configs:
+      - source: nginx-passbolt.winzardy.com_config
+        target: /etc/nginx/user_conf.d/default.conf
+
+    depends_on:
+      - passbolt
+    networks:
+      - passbolt_net
+
+volumes:
+  passbolt_db:
+    external: true
+  passbolt_gpg:
+    external: true
+  passbolt_jwt:
+    external: true
+  nginx_secrets:
+
+secrets:
+  passbolt_postgres_password:
+    external: true
+
+configs:
+  nginx-passbolt.winzardy.com_config:
+    external: true
+    
+networks:
+  passbolt_net:
+    driver: overlay

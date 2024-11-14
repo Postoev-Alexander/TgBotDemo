@@ -1,0 +1,47 @@
+# Creating a Server .conf File:
+# https://github.com/JonasAlfredsson/docker-nginx-certbot/blob/master/docs/good_to_know.md#creating-a-server-conf-file
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name passbolt.local;
+
+    location /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        root /var/www/letsencrypt;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+
+# HTTPS server
+server {
+    # Listen to port 443 on both IPv4 and IPv6.
+    listen 443 ssl reuseport;
+    listen [::]:443 ssl reuseport;
+
+    # Domain names this server should respond to.
+    server_name passbolt.local;
+
+    # Load the certificate files.
+    ssl_certificate         /etc/letsencrypt/live/passbolt/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/passbolt/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/passbolt/chain.pem;
+
+    # Load the Diffie-Hellman parameter.
+    ssl_dhparam /etc/letsencrypt/dhparams/dhparam.pem;
+
+    location / {
+        proxy_pass http://passbolt:80;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    # return 200 'Let\'s Encrypt certificate successfully installed!';
+    # add_header Content-Type text/plain;
+}
